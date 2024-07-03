@@ -116,7 +116,7 @@ local CoreGui = game:GetService("CoreGui")
 -- Interface Management
 local KapyField = game:GetObjects("rbxassetid://18313924478")[1]
 
-KapyField.Enabled = false
+KapyField.RayField.Enabled = false
 
 
 if gethui then
