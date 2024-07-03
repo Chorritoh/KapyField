@@ -878,7 +878,7 @@ function KapyFieldLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.HubName.Text = Settings.HubName
 	Topbar.GameName.Text = Settings.GameName
-	Main.Size = UDim2.new(0, 500, 0, 703)
+	Main.Size = UDim2.new(0, 500, 0, 260)
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	LoadingFrame.Title.TextTransparency = 1
