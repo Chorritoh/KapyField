@@ -10,11 +10,11 @@ iRay  | Programming
 
 
 
-local Release = "Alpha 1.0.8 | Beta 8"
+local Release = "Alpha 1.0.9 | Beta 8"
 local NotificationDuration = 6.5
 local KapyFieldFolder = "KapyField"
 local ConfigurationFolder = KapyFieldFolder.."/Configurations"
-local ConfigurationExtension = ".rfld"
+local ConfigurationExtension = ".kfcf"
 
 
 
@@ -870,7 +870,7 @@ function Minimise()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {ImageTransparency = 1}):Play()
 	TweenService:Create(Topbar.CornerRepair, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(Topbar.Divider, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
-	TweenService:Create(Topbar.VisualDivider, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
+	TweenService:Create(Topbar.VisualDivider, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 495, 0, 45)}):Play()
 	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 495, 0, 69)}):Play()
 
@@ -2403,6 +2403,7 @@ function KapyFieldLibrary:CreateWindow(Settings)
 	Topbar.BackgroundTransparency = 1
 	Topbar.Divider.Size = UDim2.new(0, 0, 0, 1)
 	Topbar.CornerRepair.BackgroundTransparency = 1
+	Topbar.VisualDivider.BackgroundTransparency = 1
 	Topbar.HubName.TextTransparency = 1
 	Topbar.GameName.TextTransparency = 1
 	Topbar.Theme.ImageTransparency = 1
@@ -2415,6 +2416,8 @@ function KapyFieldLibrary:CreateWindow(Settings)
 	TweenService:Create(Topbar.CornerRepair, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 	wait(0.1)
 	TweenService:Create(Topbar.Divider, TweenInfo.new(1, Enum.EasingStyle.Quint), {Size = UDim2.new(1, 0, 0, 1)}):Play()
+	wait(0.1)
+	TweenService:Create(Topbar.Divider, TweenInfo.new(1, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
 	wait(0.1)
 	TweenService:Create(Topbar.HubName, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 	wait(0.1)
