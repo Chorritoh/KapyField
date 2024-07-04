@@ -10,7 +10,7 @@ iRay  | Programming
 
 
 
-local Release = "Alpha 1.0.9 | Beta 8"
+local Release = "Alpha 1.1.0 | Beta 8"
 local NotificationDuration = 6.5
 local KapyFieldFolder = "KapyField"
 local ConfigurationFolder = KapyFieldFolder.."/Configurations"
@@ -44,9 +44,9 @@ local KapyFieldLibrary = {
 			ElementStroke = Color3.fromRGB(50, 50, 50),
 			SecondaryElementStroke = Color3.fromRGB(40, 40, 40), -- For labels and paragraphs
 
-			SliderBackground = Color3.fromRGB(43, 105, 159),
-			SliderProgress = Color3.fromRGB(43, 105, 159),
-			SliderStroke = Color3.fromRGB(48, 119, 177),
+			SliderBackground = Color3.fromRGB(98, 180, 153),
+			SliderProgress = Color3.fromRGB(94, 173, 147),
+			SliderStroke = Color3.fromRGB(94, 173, 147),
 
 			ToggleBackground = Color3.fromRGB(30, 30, 30),
 			ToggleEnabled = Color3.fromRGB(0, 146, 214),
@@ -83,9 +83,9 @@ local KapyFieldLibrary = {
 			ElementStroke = Color3.fromRGB(180, 199, 97),
 			SecondaryElementStroke = Color3.fromRGB(40, 40, 40), -- For labels and paragraphs
 
-			SliderBackground = Color3.fromRGB(31, 159, 71),
-			SliderProgress = Color3.fromRGB(31, 159, 71),
-			SliderStroke = Color3.fromRGB(42, 216, 94),
+			SliderBackground = Color3.fromRGB(98, 180, 153),
+			SliderProgress = Color3.fromRGB(94, 173, 147),
+			SliderStroke = Color3.fromRGB(94, 173, 147),
 
 			ToggleBackground = Color3.fromRGB(170, 203, 60),
 			ToggleEnabled = Color3.fromRGB(32, 214, 29),
