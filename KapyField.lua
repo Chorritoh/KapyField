@@ -1,7 +1,7 @@
 --[[
 
 KapyField Interface Suite
-by Sirius
+Created by Sirius and Modified by Kapybarass_ / roubloxsaa
 
 shlex | Designing + Programming
 iRay  | Programming
