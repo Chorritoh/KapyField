@@ -68,6 +68,41 @@ local CreditSection5 = Misc:CreateSection("Script made by: roubloxsaa/kapybaras.
 --                              Functions
 --=====================================================================
 
+-- Función para encontrar la cabeza del modelo más cercano
+local function FindClosestHead()
+    local closestDistance = math.huge
+    local closestHead = nil
+
+    -- Buscar en la carpeta Zombies en Workspace
+    local zombiesFolder = workspace:FindFirstChild("Zombies")
+    if zombiesFolder then
+        for _, zombie in ipairs(zombiesFolder:GetChildren()) do
+            -- Excluir los modelos en la carpeta Ignore
+            local ignoreFolder = workspace:FindFirstChild("Ignore")
+            if ignoreFolder and ignoreFolder:IsA("Folder") then
+                if ignoreFolder:FindFirstChild(zombie.Name) then
+                    continue -- Saltar este zombie si está en la carpeta Ignore
+                end
+            end
+
+            -- Encontrar la cabeza del zombie
+            local humanoid = zombie:FindFirstChildOfClass("Humanoid")
+            if humanoid and humanoid.Health > 0 then
+                local head = zombie:FindFirstChild("Head")
+                if head then
+                    local distance = (head.Position - game.Players.LocalPlayer.Character.Head.Position).magnitude
+                    if distance < closestDistance then
+                        closestDistance = distance
+                        closestHead = head
+                    end
+                end
+            end
+        end
+    end
+
+    return closestHead
+end
+
 -- Función para activar el noclip
 local function NoClip()
     Clipping = false
@@ -95,16 +130,6 @@ end
 --=====================================================================
 --=====================================================================
 
-local AimbotToggle = Main:CreateToggle({
-    Name = "Aimbot",
-    CurrentValue = false,
-    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-    -- The function that takes place when the toggle is pressed
-    -- The variable (Value) is a boolean on whether the toggle is true or false
-    end,
- })
-
 local NoClipToggle = Main:CreateToggle({
    Name = "NoClip",
    CurrentValue = false,
@@ -118,3 +143,36 @@ local NoClipToggle = Main:CreateToggle({
 end,
 })
 
+-- Crear el toggle para Aimbot
+local AimbotToggle = Guns:CreateToggle({
+    Name = "Aimbot",
+    CurrentValue = false,
+    Flag = "AimbotToggle",
+    Callback = function(Value)
+        if Value then
+            -- Activar Aimbot
+            local aimbotConnection
+
+            local function aimLock()
+                local closestHead = FindClosestHead()
+                if closestHead then
+                    -- Configurar la cámara para apuntar hacia la cabeza más cercana
+                    local lookAtPosition = closestHead.Position + Vector3.new(0, closestHead.Size.Y/2, 0)
+                    local direction = (lookAtPosition - game.Workspace.CurrentCamera.CFrame.Position).unit
+                    game.Workspace.CurrentCamera.CFrame = CFrame.new(game.Workspace.CurrentCamera.CFrame.Position, lookAtPosition)
+                end
+            end
+
+            aimbotConnection = RunService.RenderStepped:Connect(aimLock)
+
+            -- Almacenar la conexión para poder desconectarla luego
+            AimbotToggle.Connection = aimbotConnection
+        else
+            -- Desactivar Aimbot
+            if AimbotToggle.Connection then
+                AimbotToggle.Connection:Disconnect()
+                AimbotToggle.Connection = nil
+            end
+        end
+    end,
+})
