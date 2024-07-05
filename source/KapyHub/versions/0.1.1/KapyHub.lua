@@ -4,7 +4,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
 -- Define a table to store game ids and their corresponding loadstring functions
 local GameLoadStrings = {
     ["3104101863"] = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Chorritoh/KapyHub/main/source/SupportedGames/MichaelZombies/versions/1.0.0/MichaelZombies.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Chorritoh/KapyHub/main/source/SupportedGames/MichaelZombies/versions/1.0.1/MichaelZombies.lua"))()
     end,
     -- Add more games as needed in the same format
 }
