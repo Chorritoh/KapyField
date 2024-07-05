@@ -33,6 +33,8 @@ local KapyField = loadstring(game:HttpGet('https://raw.githubusercontent.com/Cho
     local NoClipping = nil
     local Clipping = true  -- Variable para controlar el estado de noclip
     local Aiming = false  -- Variable para indicar si se está apuntando con el click derecho
+    local SmoothingFactor = 0.1  -- Ajusta este valor para controlar el suavizado
+    local PreviousTargetPosition = nil
 
 --=====================================================================
 --=====================================================================
@@ -88,15 +90,29 @@ local function findNearestZombie()
     return closestZombie
 end
 
--- Función para actualizar el CFrame de la cámara hacia el zombie más cercano
+-- Función para actualizar el CFrame de la cámara hacia el zombie más cercano con suavizado
 local function updateAimLock()
     local closestZombie = findNearestZombie()
     if closestZombie then
-        -- Apuntar la cámara hacia la cabeza del zombie más cercano
-        Workspace.CurrentCamera.CFrame = CFrame.new(Workspace.CurrentCamera.CFrame.Position, closestZombie.Head.Position)
+        local targetPosition = closestZombie.Head.Position
+        
+        -- Suavizado
+        if PreviousTargetPosition then
+            targetPosition = PreviousTargetPosition:Lerp(targetPosition, SmoothingFactor)
+        end
+        
+        -- Verificar visibilidad
+        local ray = Ray.new(Workspace.CurrentCamera.CFrame.Position, (targetPosition - Workspace.CurrentCamera.CFrame.Position).unit * 500)
+        local hitPart, hitPosition = Workspace:FindPartOnRay(ray, Player.Character, false, true)
+        
+        if hitPart and hitPart.Parent == closestZombie then
+            -- El zombie objetivo es visible, actualizar la posición de la cámara
+            Workspace.CurrentCamera.CFrame = CFrame.new(Workspace.CurrentCamera.CFrame.Position, hitPosition)
+        end
+        
+        PreviousTargetPosition = targetPosition
     end
 end
-
 -- Función principal AimLock que se llama en RenderStepped
 local function AimLock(isEnabled)
     if isEnabled then
@@ -167,7 +183,7 @@ local AimbotToggle = Guns:CreateToggle({
         end)
 
         game:GetService("UserInputService").InputEnded:Connect(function(input)
-          if input.UserInputType == Enum.UserInputType.MouseButton2 and Value == true or input.UserInputType == Enum.UserInputType.MouseButton2 and Value == false then
+          if input.UserInputType == Enum.UserInputType.MouseButton2 and Value == true or input.UserInputType == Enum.UserInputType.MouseButton2 and Value == false or Value == false then
             AimLock(false)  -- Desactivar AimLock cuando se suelta el click derecho
           end
         end)
