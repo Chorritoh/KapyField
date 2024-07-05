@@ -77,7 +77,7 @@ local function findNearestZombie()
     for _, zombie in ipairs(Zombies:GetChildren()) do
         local humanoid = zombie:FindFirstChildOfClass("Humanoid")
         if humanoid then
-            local distance = (zombie.Position - PlayerCharacter.Head.Position).magnitude
+            local distance = (zombie.Head.Position - PlayerCharacter.Head.Position).magnitude
             if distance < closestDistance then
                 closestZombie = zombie
                 closestDistance = distance
@@ -161,7 +161,7 @@ local AimbotToggle = Guns:CreateToggle({
     Callback = function(Value)
         -- Detectar cuando se mantiene o suelta el click derecho
         game:GetService("UserInputService").InputBegan:Connect(function(input)
-          if input.UserInputType == Enum.UserInputType.MouseButton2 or Value == true then
+          if input.UserInputType == Enum.UserInputType.MouseButton2 and Value == true then
             AimLock(true)  -- Activar AimLock cuando se mantiene el click derecho
           end
         end)
