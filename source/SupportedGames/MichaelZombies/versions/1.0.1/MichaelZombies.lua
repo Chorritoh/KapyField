@@ -69,6 +69,7 @@ local CreditSection5 = Misc:CreateSection("Script made by: roubloxsaa/kapybaras.
 --=====================================================================
 
 -- Función para encontrar la cabeza del modelo más cercano
+-- Función para encontrar la cabeza del modelo más cercano
 local function FindClosestHead()
     local closestDistance = math.huge
     local closestHead = nil
@@ -148,11 +149,11 @@ local AimbotToggle = Guns:CreateToggle({
     Name = "Aimbot",
     CurrentValue = false,
     Flag = "AimbotToggle",
+    Connection = nil, -- Inicializar la propiedad Connection como nil
+
     Callback = function(Value)
         if Value then
             -- Activar Aimbot
-            local aimbotConnection
-
             local function aimLock()
                 local closestHead = FindClosestHead()
                 if closestHead then
@@ -163,10 +164,9 @@ local AimbotToggle = Guns:CreateToggle({
                 end
             end
 
-            aimbotConnection = RunService.RenderStepped:Connect(aimLock)
+            -- Conectar aimLock() al evento RenderStepped
+            AimbotToggle.Connection = RunService.RenderStepped:Connect(aimLock)
 
-            -- Almacenar la conexión para poder desconectarla luego
-            AimbotToggle.Connection = aimbotConnection
         else
             -- Desactivar Aimbot
             if AimbotToggle.Connection then
